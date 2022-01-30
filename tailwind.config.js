@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        offWhite: "#e9e9e9",
         gray: colors.stone,
       },
     },

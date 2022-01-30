@@ -1,5 +1,6 @@
 import { useAnimationFrame } from "framer-motion";
 import { useState } from "react";
+import { PatternLines } from "@vx/pattern";
 import { degreesToRadians } from "../lib";
 
 export function Basic(props: VariationProps) {
@@ -18,14 +19,15 @@ export function Basic(props: VariationProps) {
     <>
       <g>
         <ellipse
-          className="stroke-gray-800 fill-transparent stroke-2"
+          className="stroke-gray-800 stroke-2"
           cx={width / 2}
           cy={width / 2}
           rx={radius}
           ry={radius}
+          fill="url(#lines)"
         />
         <ellipse
-          className="stroke-gray-800 fill-transparent stroke-2"
+          className="stroke-gray-800 fill-offWhite stroke-2"
           cx={cx}
           cy={cy}
           rx={radius / 2}
@@ -37,6 +39,14 @@ export function Basic(props: VariationProps) {
           x2={cx}
           y2={cy}
           className="stroke-pink-600 stroke-2"
+        />
+        <PatternLines
+          id="lines"
+          height={8}
+          width={8}
+          stroke={"rgba(0, 0, 0, .25)"}
+          strokeWidth={1}
+          orientation={["diagonal"]}
         />
       </g>
     </>
