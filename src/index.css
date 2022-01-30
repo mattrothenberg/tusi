@@ -5,3 +5,7 @@
 body {
   background: theme("colors.offWhite");
 }
+
+svg path {
+  vector-effect: non-scaling-stroke;
+}

@@ -10,7 +10,7 @@ export function Stage(props: StageProps) {
   return (
     <div className="absolute inset-0 w-full h-full" ref={observe}>
       <svg width={width} height={height}>
-        {render({ width, height })}
+        {width > 0 && height > 0 ? render({ width, height }) : null}
       </svg>
     </div>
   );
