@@ -11,10 +11,16 @@ export function Dashed(props: VariationProps) {
     setAngle((currAngle) => currAngle - 3);
   });
 
-  const cx = width / 2 + (radius / 2) * Math.cos(degreesToRadians(angle));
-  const cy = width / 2 + (radius / 2) * Math.sin(degreesToRadians(angle));
+  const rotation = pointOnCircle({
+    angle,
+    radius: radius / 2,
+    offset: width / 2,
+  });
 
-  const linePoints = [pointOnCircle(radius, 180), pointOnCircle(radius, 0)];
+  const linePoints = [
+    pointOnCircle({ angle: 180, radius, offset: width / 2 }),
+    pointOnCircle({ angle: 0, radius, offset: width / 2 }),
+  ];
 
   return (
     <>
@@ -28,17 +34,17 @@ export function Dashed(props: VariationProps) {
         />
         <ellipse
           className="stroke-gray-800 fill-offWhite stroke-2"
-          cx={cx}
-          cy={cy}
+          cx={rotation.x}
+          cy={rotation.y}
           rx={radius / 2}
           ry={radius / 2}
         />
 
         <motion.line
-          x1={linePoints[0].x + width / 2}
-          y1={linePoints[0].y + width / 2}
-          x2={linePoints[1].x + width / 2}
-          y2={linePoints[1].y + width / 2}
+          x1={linePoints[0].x}
+          y1={linePoints[0].y}
+          x2={linePoints[1].x}
+          y2={linePoints[1].y}
           className="stroke-gray-400 stroke-2 fill-transparent"
           strokeDasharray={8}
           transition={{
@@ -49,8 +55,7 @@ export function Dashed(props: VariationProps) {
             repeatType: "loop",
           }}
           initial={{
-            strokeDashoffset:
-              linePoints[1].x + width / 2 - linePoints[0].x + width / 2,
+            strokeDashoffset: linePoints[1].x - linePoints[0].x,
           }}
           animate={{
             strokeDashoffset: 8,
@@ -59,8 +64,8 @@ export function Dashed(props: VariationProps) {
         <line
           y1={width / 2}
           x1={width / 2 + radius * Math.cos(degreesToRadians(angle))}
-          x2={cx}
-          y2={cy}
+          x2={rotation.x}
+          y2={rotation.y}
           className="stroke-pink-600 stroke-2"
         />
         <ellipse

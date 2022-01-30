@@ -1,7 +1,7 @@
 import { useAnimationFrame } from "framer-motion";
 import { useState } from "react";
 import { PatternLines } from "@vx/pattern";
-import { degreesToRadians } from "../lib";
+import { pointOnCircle } from "../lib";
 
 export function Basic(props: VariationProps) {
   const { radius, size } = props;
@@ -12,8 +12,11 @@ export function Basic(props: VariationProps) {
     setAngle((currAngle) => currAngle - 1);
   });
 
-  const cx = width / 2 + (radius / 2) * Math.cos(degreesToRadians(angle));
-  const cy = width / 2 + (radius / 2) * Math.sin(degreesToRadians(angle));
+  const rotation = pointOnCircle({
+    angle,
+    radius: radius / 2,
+    offset: width / 2,
+  });
 
   return (
     <>
@@ -28,16 +31,16 @@ export function Basic(props: VariationProps) {
         />
         <ellipse
           className="stroke-gray-800 fill-offWhite stroke-2"
-          cx={cx}
-          cy={cy}
+          cx={rotation.x}
+          cy={rotation.y}
           rx={radius / 2}
           ry={radius / 2}
         />
         <line
           x1={width / 2}
-          y1={width / 2 + radius * Math.sin(degreesToRadians(angle))}
-          x2={cx}
-          y2={cy}
+          y1={pointOnCircle({ angle, radius, offset: width / 2 }).y}
+          x2={rotation.x}
+          y2={rotation.y}
           className="stroke-pink-600 stroke-2"
         />
         <PatternLines
