@@ -8,7 +8,7 @@ interface PtOnCircleParams {
 }
 
 export const pointOnCircle = (params: PtOnCircleParams) => {
-  const { radius, offset = 0, angle } = params;
+  const { radius, offset = 0, angle = 0 } = params;
 
   return {
     x: offset + radius * Math.cos(degreesToRadians(angle)),
